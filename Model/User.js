@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,31 +8,70 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true
+      lowercase: true,
     },
     password: { type: String, required: true },
+
+    // ✅ Role
     role: {
       type: String,
-      enum: ['admin', 'customer'],
-      default: 'customer'
+      enum: ["admin", "customer", "delivery"],
+      default: "customer",
     },
+
+    // ✅ Customer profile info
+    phone: { type: String },
+    gender: { type: String, enum: ["Male", "Female", "Other"] },
+    dob: { type: Date },
+
+    // ✅ Addresses (customers usually save multiple delivery addresses)
+    addresses: [
+      {
+        label: { type: String }, // e.g., Home, Work
+        street: { type: String },
+        city: { type: String },
+        state: { type: String },
+        pincode: { type: String },
+        landmark: { type: String },
+        isDefault: { type: Boolean, default: false },
+      },
+    ],
+
+    // ✅ Cart
+    cart: [
+      {
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        weight: { type: Number }, // 500, 1000
+        unit: { type: String }, // g, kg, piece
+        price: { type: Number }, // at the time of adding
+        quantity: { type: Number, default: 1 },
+      },
+    ],
+
+    // ✅ Wishlist
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+
+    // ✅ OTP Verification
     otp: { type: String },
-    otpExpires: { type: Date }
+    otpExpires: { type: Date },
+
+    // ✅ Account status
+    isVerified: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
 
-
-// Hash password before saving
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+// 🔒 Hash password before saving
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
-// Password check method
+// 🔑 Compare password method
 userSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

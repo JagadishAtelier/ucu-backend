@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 
-const subcategorySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: String,
-  image: String,
-}, { _id: false }); 
+// Subcategory Schema
+const subcategorySchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true }, // e.g., Boneless, Curry Cut
+    description: String,
+    image: String,
+  },
+  { _id: false }
+);
 
+// Category Schema
 const categorySchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true, unique: true }, // e.g., Chicken, Mutton, Fish
     description: String,
     image: String,
     subcategories: [subcategorySchema],
