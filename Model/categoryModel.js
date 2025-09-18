@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 // Subcategory Schema
 const subcategorySchema = new mongoose.Schema(
   {
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
     name: { type: String, required: true }, // e.g., Boneless, Curry Cut
     description: String,
     image: String,
   },
-  { _id: false }
 );
 
 // Category Schema

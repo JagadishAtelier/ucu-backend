@@ -6,12 +6,11 @@ const productSchema = new mongoose.Schema(
     images: [{ type: String }], // Product images
     name: { type: String, required: true }, // e.g., Chicken Breast, Mutton Curry Cut
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
-    subcategory: { type: String }, // from Category.subcategories array
+    subcategory: { type: mongoose.Schema.Types.ObjectId, required: true }, // from Category.subcategories array
     
     productVideoUrl: { type: String },
 
     description: { type: String }, // Product details
-    certifications: [{ type: String }], // e.g., ["Halal", "Organic"]
 
     // ✅ Meat-specific attributes
     cutType: { type: String }, // e.g., "Curry Cut", "Boneless", "Whole"
