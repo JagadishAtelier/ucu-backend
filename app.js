@@ -15,8 +15,8 @@ require("dotenv").config();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: process.env.DASHBOARD_URI,
-  credentials: true, // if using cookies or auth headers
+  origin: "*",  // allows requests from any domain
+  credentials: true, // optional: only needed if you use cookies or auth headers
 }));
 // Routes
 app.use("/api/categories", categoryRoutes);
