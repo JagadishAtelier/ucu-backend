@@ -6,7 +6,6 @@ const productSchema = new mongoose.Schema(
     images: [{ type: String }], // Product images
     name: { type: String, required: true }, // e.g., Chicken Breast, Mutton Curry Cut
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
-    subcategory: { type: mongoose.Schema.Types.ObjectId, required: true }, // from Category.subcategories array
     
     productVideoUrl: { type: String },
 
