@@ -44,10 +44,11 @@ exports.getProductById = async (req, res) => {
 };
 
 // 📌 Update Product
+// 📌 Update Product
 exports.updateProduct = async (req, res) => {
   try {
-    const updated = await Product.findOneAndUpdate(
-      { id: req.params.id },
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,   // uses Mongo _id
       req.body,
       { new: true }
     );
@@ -62,10 +63,11 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
+
 // 📌 Delete Product
 exports.deleteProduct = async (req, res) => {
   try {
-    const deleted = await Product.findOneAndDelete({ id: req.params.id });
+    const deleted = await Product.findByIdAndDelete(req.params.id); // use _id
     if (!deleted) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
@@ -74,3 +76,4 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
