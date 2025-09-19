@@ -2,23 +2,18 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true, unique: true },
+    orderId: { type: String, unique: true }, // auto-generated order ID
 
-    // ✅ Link to user
     buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-
-    // ✅ Delivery details
     location: { type: String, required: true },
-    deliveryInstructions: { type: String }, // optional: "Leave at doorstep"
+    deliveryInstructions: { type: String },
 
-    // ✅ Order status
     status: {
       type: String,
       enum: ["Pending", "Processing", "Completed", "Cancelled"],
       default: "Pending",
     },
 
-    // ✅ Payment details
     paymentMethod: {
       type: String,
       enum: ["COD", "UPI", "Card", "NetBanking", "Wallet"],
@@ -31,24 +26,34 @@ const orderSchema = new mongoose.Schema(
     },
     paymentDate: Date,
 
-    // ✅ Products ordered
     products: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-        subcategory: { type: String }, // e.g., Curry Cut, Boneless
-        weight: { type: Number }, // 500, 1000
-        unit: { type: String }, // g, kg, piece
-        price: { type: Number }, // price at order time
-        quantity: { type: Number, default: 1 }, // number of packs
+        weight: { type: Number },
+        price: { type: Number },
+        quantity: { type: Number, default: 1 },
       },
     ],
 
-    // ✅ Order summary
     total: { type: Number, required: true },
     discount: { type: Number, default: 0 },
-    finalAmount: { type: Number, required: true }, // total - discount
+    finalAmount: { type: Number, required: true },
   },
   { timestamps: true }
 );
+
+// 🔹 Auto-generate incremental orderId before saving
+orderSchema.pre("save", async function (next) {
+  if (!this.orderId) {
+    const lastOrder = await this.constructor.findOne().sort({ createdAt: -1 });
+    if (lastOrder && lastOrder.orderId) {
+      const lastNumber = parseInt(lastOrder.orderId.replace("ORD", "")) || 0;
+      this.orderId = `ORD${lastNumber + 1}`;
+    } else {
+      this.orderId = "ORD1";
+    }
+  }
+  next();
+});
 
 module.exports = mongoose.model("Order", orderSchema);
