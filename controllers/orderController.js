@@ -36,7 +36,7 @@ exports.getOrders = async (req, res) => {
 // 📌 Get a single order by ID
 exports.getOrderById = async (req, res) => {
   try {
-    const order = await Order.findOne({ id: req.params.id })
+    const order = await Order.findOne(req.params.id)
       .populate("buyer", "name email")
       .populate("products.productId", "name price");
     if (!order)
@@ -73,7 +73,7 @@ exports.updateOrder = async (req, res) => {
 // 📌 Delete an order by ID
 exports.deleteOrder = async (req, res) => {
   try {
-    const order = await Order.findOneAndDelete({ id: req.params.id });
+    const order = await Order.findOneAndDelete(req.params.id);
     if (!order)
       return res.status(404).json({ success: false, message: "Order not found" });
     res.json({ success: true, message: "Order deleted successfully" });
