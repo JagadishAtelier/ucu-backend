@@ -22,6 +22,7 @@ const productSchema = new mongoose.Schema(
       {
         weight: { type: Number, required: true }, // e.g., 500, 1000 (grams)
         price: { type: Number, required: true }, // price for this weight
+        discountPrice : {type : Number},
         stock: { type: Number, default: 0 }, // stock for this weight option
       },
     ],
