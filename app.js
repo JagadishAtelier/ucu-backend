@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const HeroBannerRoutes = require("./Router/HeroBannerRoutes");
 const authRoutes = require("./Router/authRoutes");
+const councilCategory = require('./Router/CategoryCouncilRoutes')
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -16,5 +17,6 @@ app.use(cors({
 // Routes
 app.use("/api/hero-banner", HeroBannerRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/council", councilCategory);
 
 module.exports = app;
