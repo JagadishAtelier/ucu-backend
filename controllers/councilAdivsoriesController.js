@@ -64,7 +64,7 @@ exports.deleteAdivsories = async(req,res) =>{
             return res.status(400).json({message : "Invalid Id Not Found"})
         }
 
-        res.status(200).json({message : "Deleted Successfully"})
+        res.status(200).json({message : "Deleted"})
     } catch (error) {
         res.status(400).json({success : false , message : error.message})
     }

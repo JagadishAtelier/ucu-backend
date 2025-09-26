@@ -9,5 +9,6 @@ router.get('/',councilRouter.getCouncilCategory)
 router.get('/:id',councilRouter.getCouncilCategoryById)
 router.put('/:id',councilRouter.updateCouncilCategory)
 router.delete('/:id',councilRouter.deleteCouncilCategory)
+router.get('/category/:id',councilRouter.getCouncilCategoryWithAdivsories)
 
 module.exports = router;
