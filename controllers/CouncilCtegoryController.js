@@ -1,5 +1,5 @@
 const CouncilCategory = require('../Model/CouncilCategory')
-
+const CouncilAdivsories = require('../Model/CouncilDataModel')
 exports.createCouncilCategory = async(req,res) =>{
     try {
         const {councilTitle} = req.body
@@ -75,6 +75,24 @@ exports.deleteCouncilCategory = async(req,res)=>{
             return res.status(400).json({message : "Invalid Id ,Not Found"})
         }
         res.status(200).json({message : "Deleted Successfully"})
+    }  catch (error) {
+        res.status(400).json({success : false , message : error.message})
+    }
+}
+
+exports.getCouncilCategoryWithAdivsories = async(req,res) =>{
+    try {
+        const { id } = req.params
+
+        const category = await CouncilCategory.findById(id)
+
+        if(!category){
+            return res.status(400).json({message : "Invalid Id Not Found"})
+        }
+
+        const adivsories = await CouncilAdivsories.find({councilTitleId : id})
+
+        res.status(200).json({success : true , data :{ category,adivsories }})
     }  catch (error) {
         res.status(400).json({success : false , message : error.message})
     }
