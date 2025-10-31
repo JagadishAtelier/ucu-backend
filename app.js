@@ -5,6 +5,8 @@ const authRoutes = require("./Router/authRoutes");
 const councilCategory = require('./Router/CategoryCouncilRoutes')
 const adivsoriesRoutes = require('./Router/AdivsoriesRoutes')
 const aspirant = require('./Router/AspirantRouter')
+const industryIcons = require('./Router/IndustryIconsRoutes')
+const fullTimeProgramRoutes = require("./Router/fullTimeProgramRoutes");
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -20,7 +22,9 @@ app.use(cors({
 app.use("/api/hero-banner", HeroBannerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/council", councilCategory);
-app.use("/api/program-category", aspirant);
+app.use("/api/aspirant", aspirant);
 app.use("/api/council-adivsories", adivsoriesRoutes);
+app.use("/api/fulltimeprograms", fullTimeProgramRoutes);
+app.use("/api/industryIcons", industryIcons);
 
 module.exports = app;
