@@ -6,6 +6,7 @@ const councilCategory = require('./Router/CategoryCouncilRoutes')
 const adivsoriesRoutes = require('./Router/AdivsoriesRoutes')
 const aspirant = require('./Router/AspirantRouter')
 const industryIcons = require('./Router/IndustryIconsRoutes')
+const upcommingEvent = require('./Router/EventRoutes')
 const fullTimeProgramRoutes = require("./Router/fullTimeProgramRoutes");
 const cors = require("cors")
 const app = express();
@@ -26,5 +27,6 @@ app.use("/api/aspirant", aspirant);
 app.use("/api/council-adivsories", adivsoriesRoutes);
 app.use("/api/fulltimeprograms", fullTimeProgramRoutes);
 app.use("/api/industryIcons", industryIcons);
+app.use("/api/upcommingEvent", upcommingEvent);
 
 module.exports = app;
