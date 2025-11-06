@@ -8,10 +8,13 @@ const aspirant = require('./Router/AspirantRouter')
 const industryIcons = require('./Router/IndustryIconsRoutes')
 const upcommingEvent = require('./Router/EventRoutes')
 const fullTimeProgramRoutes = require("./Router/fullTimeProgramRoutes");
-const consortiumRoutes  = require("./Router/consortiumRoutes");
-const consortiumPillarRoutes   = require("./Router/consortiumPillarRoutes");
-const consortiumTeamRoutes    = require("./Router/consortiumTeamRoutes");
-const consortiumPartnerRoutes     = require("./Router/consortiumPartnerRoutes");
+const consortiumRoutes= require("./Router/consortiumRoutes");
+const consortiumPillarRoutes= require("./Router/consortiumPillarRoutes");
+const consortiumTeamRoutes= require("./Router/consortiumTeamRoutes");
+const consortiumPartnerRoutes= require("./Router/consortiumPartnerRoutes");
+const openProgramRoutes = require("./Router/openProgramRoutes");
+const summerProgramRoutes= require("./Router/summerProgramRoutes");
+const summerProgramListRoutes = require("./Router/summerProgramListRoutes");
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -35,6 +38,8 @@ app.use("/api/upcommingEvent", upcommingEvent);
 app.use("/api/consortium", consortiumRoutes);
 app.use("/api/consortiumPillar", consortiumPillarRoutes );
 app.use("/api/consortiumTeam", consortiumTeamRoutes  );
-app.use("/api/consortiumPartner", consortiumPartnerRoutes   );
+app.use("/api/consortiumPartner", consortiumPartnerRoutes);
+app.use("/api/openProgram", openProgramRoutes);
+app.use("/api/summerProgramList", summerProgramListRoutes );
 
 module.exports = app;
