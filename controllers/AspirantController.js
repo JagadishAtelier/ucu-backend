@@ -3,13 +3,13 @@ const Aspirants = require("../Model/AspirantsModal");
 // ✅ Create a new aspirant
 exports.createAspirant = async (req, res) => {
   try {
-    const { VideoUrl, author, authorProf } = req.body;
+    const { VideoUrl, author, authorProf,thumbNailUrl,authorDesc } = req.body;
 
-    if (!VideoUrl || !author || !authorProf) {
+    if (!VideoUrl || !author || !authorProf || !authorDesc || !thumbNailUrl) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newAspirant = await Aspirants.create({ VideoUrl, author, authorProf });
+    const newAspirant = await Aspirants.create({ VideoUrl, author, authorProf ,authorDesc,thumbNailUrl });
     res.status(201).json({ message: "Aspirant created successfully", data: newAspirant });
   } catch (error) {
     res.status(500).json({ message: "Error creating aspirant", error: error.message });
@@ -42,10 +42,10 @@ exports.getAspirantById = async (req, res) => {
 // ✅ Update aspirant
 exports.updateAspirant = async (req, res) => {
   try {
-    const { VideoUrl, author, authorProf } = req.body;
+    const { VideoUrl, author, authorProf,thumbNailUrl,authorDesc } = req.body;
     const updatedAspirant = await Aspirants.findByIdAndUpdate(
       req.params.id,
-      { VideoUrl, author, authorProf },
+      { VideoUrl, author, authorProf,authorDesc,thumbNailUrl },
       { new: true, runValidators: true }
     );
 
