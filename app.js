@@ -8,13 +8,18 @@ const aspirant = require('./Router/AspirantRouter')
 const industryIcons = require('./Router/IndustryIconsRoutes')
 const upcommingEvent = require('./Router/EventRoutes')
 const fullTimeProgramRoutes = require("./Router/fullTimeProgramRoutes");
-const consortiumRoutes= require("./Router/consortiumRoutes");
-const consortiumPillarRoutes= require("./Router/consortiumPillarRoutes");
-const consortiumTeamRoutes= require("./Router/consortiumTeamRoutes");
-const consortiumPartnerRoutes= require("./Router/consortiumPartnerRoutes");
+const consortiumRoutes= require("./Router/ConsortiumPageRoutes/consortiumRoutes");
+const consortiumPillarRoutes= require("./Router/ConsortiumPageRoutes/consortiumPillarRoutes");
+const consortiumTeamRoutes= require("./Router/ConsortiumPageRoutes/consortiumTeamRoutes");
+const consortiumPartnerRoutes= require("./Router/ConsortiumPageRoutes/consortiumPartnerRoutes");
 const openProgramRoutes = require("./Router/openProgramRoutes");
 const summerProgramRoutes= require("./Router/summerProgramRoutes");
 const summerProgramListRoutes = require("./Router/summerProgramListRoutes");
+const executiveBannerRoutes = require("./Router/executiveRoutes/executiveBannerRoutes");
+const executiveAreaRoutes = require("./Router/executiveRoutes/executiveAreaRoutes");
+const executiveUpcommingProgramRoutes = require("./Router/executiveRoutes/executiveUpcommingProgramRoutes");
+const excutiveImpactRoutes = require("./Router/executiveRoutes/excutiveImpactRoutes");
+
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -41,5 +46,9 @@ app.use("/api/consortiumTeam", consortiumTeamRoutes  );
 app.use("/api/consortiumPartner", consortiumPartnerRoutes);
 app.use("/api/openProgram", openProgramRoutes);
 app.use("/api/summerProgramList", summerProgramListRoutes );
+app.use("/api/executiveBanner", executiveBannerRoutes );
+app.use("/api/executiveArea", executiveAreaRoutes );
+app.use("/api/executiveUpcommingProgram", executiveUpcommingProgramRoutes );
+app.use("/api/excutiveImpact", excutiveImpactRoutes );
 
 module.exports = app;

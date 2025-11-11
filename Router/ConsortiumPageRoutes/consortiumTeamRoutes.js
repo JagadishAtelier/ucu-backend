@@ -6,7 +6,7 @@ const {
   getTeamMemberById,
   updateTeamMember,
   deleteTeamMember,
-} = require("../controllers/consortiumTeamController");
+} = require("../../controllers/ConsortiumPageController/consortiumTeamController");
 
 // Routes
 router.post("/", createTeamMember);

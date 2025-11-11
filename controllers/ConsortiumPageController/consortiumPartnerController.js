@@ -1,4 +1,4 @@
-const ConsortiumPartner = require("../Model/ConsortiumPartners");
+const ConsortiumPartner = require("../../Model/ConsortiumPageModel/ConsortiumPartners");
 
 // ✅ Create a new consortium partner
 exports.createPartner = async (req, res) => {

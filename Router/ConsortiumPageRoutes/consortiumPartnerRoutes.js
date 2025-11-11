@@ -6,7 +6,7 @@ const {
   getPartnerById,
   updatePartner,
   deletePartner,
-} = require("../controllers/consortiumPartnerController");
+} = require("../../controllers/ConsortiumPageController/consortiumPartnerController");
 
 // Create
 router.post("/", createPartner);

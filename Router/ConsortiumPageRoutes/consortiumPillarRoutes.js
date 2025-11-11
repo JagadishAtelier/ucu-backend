@@ -6,7 +6,7 @@ const {
   getPillarById,
   updatePillar,
   deletePillar,
-} = require("../controllers/consortiumPillarController");
+} = require("../../controllers/ConsortiumPageController/consortiumPillarController");
 
 // Create
 router.post("/", createPillar);

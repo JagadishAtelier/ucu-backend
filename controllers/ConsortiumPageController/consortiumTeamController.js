@@ -1,4 +1,4 @@
-const ConsortiumTeam = require("../Model/ConsortiumTeam");
+const ConsortiumTeam = require("../../Model/ConsortiumPageModel/ConsortiumTeam");
 
 // ✅ Create a new team member
 exports.createTeamMember = async (req, res) => {

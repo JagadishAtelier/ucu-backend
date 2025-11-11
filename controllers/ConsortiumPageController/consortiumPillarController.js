@@ -1,4 +1,4 @@
-const ConsortiumPillar = require("../Model/ConsortiumPillars");
+const ConsortiumPillar = require("../../Model/ConsortiumPageModel/ConsortiumPillars");
 
 // ✅ Create Pillar
 exports.createPillar = async (req, res) => {

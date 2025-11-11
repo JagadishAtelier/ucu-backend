@@ -1,4 +1,4 @@
-const Consortium = require("../Model/ConsortiumModel");
+const Consortium = require("../../Model/ConsortiumPageModel/ConsortiumModel");
 
 // ✅ Create Consortium
 exports.createConsortium = async (req, res) => {

@@ -6,7 +6,7 @@ const {
   getConsortiumById,
   updateConsortium,
   deleteConsortium,
-} = require("../controllers/consortiumController");
+} = require("../../controllers/ConsortiumPageController/consortiumController");
 
 // Create
 router.post("/", createConsortium);
