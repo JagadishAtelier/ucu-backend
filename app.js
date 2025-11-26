@@ -19,6 +19,8 @@ const executiveBannerRoutes = require("./Router/executiveRoutes/executiveBannerR
 const executiveAreaRoutes = require("./Router/executiveRoutes/executiveAreaRoutes");
 const executiveUpcommingProgramRoutes = require("./Router/executiveRoutes/executiveUpcommingProgramRoutes");
 const excutiveImpactRoutes = require("./Router/executiveRoutes/excutiveImpactRoutes");
+const ucuDirectorDataRoutes = require("./Router/ucuDirectorRoutes/ucuDirectorDataRoutes");
+const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRoutes");
 
 const cors = require("cors")
 const app = express();
@@ -50,5 +52,7 @@ app.use("/api/executiveBanner", executiveBannerRoutes );
 app.use("/api/executiveArea", executiveAreaRoutes );
 app.use("/api/executiveUpcommingProgram", executiveUpcommingProgramRoutes );
 app.use("/api/excutiveImpact", excutiveImpactRoutes );
+app.use("/api/ucuDirectorData", ucuDirectorDataRoutes );
+app.use("/api/facultyBanner", facultyBannerRoutes  );
 
 module.exports = app;

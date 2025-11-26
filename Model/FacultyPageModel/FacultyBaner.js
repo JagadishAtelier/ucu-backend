@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const summerProgramSchema = new mongoose.Schema(
+const facultyBannerSchema = new mongoose.Schema(
   {
     bannerTitle: { type: String, required: true },
     bannerContent: { type: String},
@@ -10,4 +10,4 @@ const summerProgramSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("SummerProgram", summerProgramSchema);
+module.exports = mongoose.model("FacultyBanner", facultyBannerSchema);
