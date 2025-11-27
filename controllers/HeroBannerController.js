@@ -34,7 +34,7 @@ exports.getBannerById = async (req, res) => {
 
     const bannerData = await Banner.findOne(query);
     if (!bannerData) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+      return res.status(404).json({ success: false, message: "Banner not found" });
     }
 
     res.json({ success: true, data: bannerData });
@@ -43,7 +43,6 @@ exports.getBannerById = async (req, res) => {
   }
 };
 
-// 📌 Update Product
 // 📌 Update Product
 exports.updateBanner = async (req, res) => {
   try {
@@ -54,7 +53,7 @@ exports.updateBanner = async (req, res) => {
     );
 
     if (!updatedbannerData) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+      return res.status(404).json({ success: false, message: "Banner not found" });
     }
 
     res.json({ success: true, data: updatedbannerData });
@@ -69,9 +68,9 @@ exports.deleteBanner = async (req, res) => {
   try {
     const deletedBannerData = await Banner.findByIdAndDelete(req.params.id); // use _id
     if (!deletedBannerData) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+      return res.status(404).json({ success: false, message: "Banner not found" });
     }
-    res.json({ success: true, message: "Product deleted" });
+    res.json({ success: true, message: "Banner deleted" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
