@@ -8,6 +8,20 @@ const aspirant = require('./Router/AspirantRouter')
 const industryIcons = require('./Router/IndustryIconsRoutes')
 const upcommingEvent = require('./Router/EventRoutes')
 const fullTimeProgramRoutes = require("./Router/fullTimeProgramRoutes");
+const consortiumRoutes= require("./Router/ConsortiumPageRoutes/consortiumRoutes");
+const consortiumPillarRoutes= require("./Router/ConsortiumPageRoutes/consortiumPillarRoutes");
+const consortiumTeamRoutes= require("./Router/ConsortiumPageRoutes/consortiumTeamRoutes");
+const consortiumPartnerRoutes= require("./Router/ConsortiumPageRoutes/consortiumPartnerRoutes");
+const openProgramRoutes = require("./Router/openProgramRoutes");
+const summerProgramRoutes= require("./Router/summerProgramRoutes");
+const summerProgramListRoutes = require("./Router/summerProgramListRoutes");
+const executiveBannerRoutes = require("./Router/executiveRoutes/executiveBannerRoutes");
+const executiveAreaRoutes = require("./Router/executiveRoutes/executiveAreaRoutes");
+const executiveUpcommingProgramRoutes = require("./Router/executiveRoutes/executiveUpcommingProgramRoutes");
+const excutiveImpactRoutes = require("./Router/executiveRoutes/excutiveImpactRoutes");
+const ucuDirectorDataRoutes = require("./Router/ucuDirectorRoutes/ucuDirectorDataRoutes");
+const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRoutes");
+
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -28,5 +42,17 @@ app.use("/api/council-adivsories", adivsoriesRoutes);
 app.use("/api/fulltimeprograms", fullTimeProgramRoutes);
 app.use("/api/industryIcons", industryIcons);
 app.use("/api/upcommingEvent", upcommingEvent);
+app.use("/api/consortium", consortiumRoutes);
+app.use("/api/consortiumPillar", consortiumPillarRoutes );
+app.use("/api/consortiumTeam", consortiumTeamRoutes  );
+app.use("/api/consortiumPartner", consortiumPartnerRoutes);
+app.use("/api/openProgram", openProgramRoutes);
+app.use("/api/summerProgramList", summerProgramListRoutes );
+app.use("/api/executiveBanner", executiveBannerRoutes );
+app.use("/api/executiveArea", executiveAreaRoutes );
+app.use("/api/executiveUpcommingProgram", executiveUpcommingProgramRoutes );
+app.use("/api/excutiveImpact", excutiveImpactRoutes );
+app.use("/api/ucuDirectorData", ucuDirectorDataRoutes );
+app.use("/api/facultyBanner", facultyBannerRoutes  );
 
 module.exports = app;
