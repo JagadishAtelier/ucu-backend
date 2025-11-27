@@ -24,6 +24,11 @@ const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRo
 const partnershipCategoryRoutes  = require("./Router/partnershipCategoryRouter/partnershipCategoryRoutes");
 const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
 const partnershipBannerRoutes  = require("./Router/partnershipCategoryRouter/partnershipBannerRoutes");
+const CampusCommunityRoutes  = require("./Router/CampusSecRouter/CampusCommunityRoutes");
+const CampusExploreRoutes  = require("./Router/CampusSecRouter/CampusExploreRoutes");
+const CampusFacilitiesRoutes  = require("./Router/CampusSecRouter/CampusFacilitiesRoutes");
+const CampusGatewayRoutes  = require("./Router/CampusSecRouter/CampusGatewayRoutes");
+const CampusBannerRoutes  = require("./Router/CampusSecRouter/CampusBannerRoutes");
 
 const cors = require("cors")
 const app = express();
@@ -60,5 +65,10 @@ app.use("/api/facultyBanner", facultyBannerRoutes  );
 app.use("/api/partnershipData", partnershipDataRoutes  );
 app.use("/api/partnershipCategory", partnershipCategoryRoutes  );
 app.use("/api/partnershipBanner", partnershipBannerRoutes  );
+app.use("/api/CampusCommunity", CampusCommunityRoutes  );
+app.use("/api/CampusExplore", CampusExploreRoutes  );
+app.use("/api/CampusFacilities", CampusFacilitiesRoutes  );
+app.use("/api/CampusGateway", CampusGatewayRoutes  );
+app.use("/api/CampusBanner", CampusBannerRoutes  );
 
 module.exports = app;
