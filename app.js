@@ -21,6 +21,9 @@ const executiveUpcommingProgramRoutes = require("./Router/executiveRoutes/execut
 const excutiveImpactRoutes = require("./Router/executiveRoutes/excutiveImpactRoutes");
 const ucuDirectorDataRoutes = require("./Router/ucuDirectorRoutes/ucuDirectorDataRoutes");
 const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRoutes");
+const partnershipCategoryRoutes  = require("./Router/partnershipCategoryRouter/partnershipCategoryRoutes");
+const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
+const partnershipBannerRoutes  = require("./Router/partnershipCategoryRouter/partnershipBannerRoutes");
 
 const cors = require("cors")
 const app = express();
@@ -54,5 +57,8 @@ app.use("/api/executiveUpcommingProgram", executiveUpcommingProgramRoutes );
 app.use("/api/excutiveImpact", excutiveImpactRoutes );
 app.use("/api/ucuDirectorData", ucuDirectorDataRoutes );
 app.use("/api/facultyBanner", facultyBannerRoutes  );
+app.use("/api/partnershipData", partnershipDataRoutes  );
+app.use("/api/partnershipCategory", partnershipCategoryRoutes  );
+app.use("/api/partnershipBanner", partnershipBannerRoutes  );
 
 module.exports = app;
