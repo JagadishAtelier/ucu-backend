@@ -1,7 +1,7 @@
 {
-  "name": "e-commercedemo_backend",
+  "name": "ucubackend",
   "version": "1.0.0",
-  "description": "Backend Api's for E-commerce Application",
+  "description": "Backend Api's for University website Application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,21 +9,19 @@
     "dev": "nodemon index.js"
   },
   "keywords": [
-    "ecommerce",
+    "univercity",
     "api",
     "backend",
     "node",
-    "shiprocket",
-    "razorpay",
+    "cms",
+    "website",
     "express"
   ],
-  "author": "Prasanth on behalf of atelier",
+  "author": "Prasanth s on behalf of atelier",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/prasanthoyasco/e-commercedemo_backend/issues"
-  },
-  "homepage": "https://github.com/prasanthoyasco/e-commercedemo_backend#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.940.0",
+    "@aws-sdk/s3-request-presigner": "^3.940.0",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",

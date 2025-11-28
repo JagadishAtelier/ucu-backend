@@ -36,6 +36,16 @@ const strategicAssociationsRoutes = require("./Router/executiveRoutes/strategicA
 const coeRoutes = require("./Router/executiveRoutes/coeRoutes");
 const mediaRoutes = require("./Router/MediaRouter/mediaRoutes");
 const mediaBannerRoutes = require("./Router/MediaRouter/mediaBannerRoutes");
+const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRoutes");
+const partnershipCategoryRoutes  = require("./Router/partnershipCategoryRouter/partnershipCategoryRoutes");
+const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
+const partnershipBannerRoutes  = require("./Router/partnershipCategoryRouter/partnershipBannerRoutes");
+const uploadRoutes = require("./Router/upload");
+const CampusCommunityRoutes  = require("./Router/CampusSecRouter/CampusCommunityRoutes");
+const CampusExploreRoutes  = require("./Router/CampusSecRouter/CampusExploreRoutes");
+const CampusFacilitiesRoutes  = require("./Router/CampusSecRouter/CampusFacilitiesRoutes");
+const CampusGatewayRoutes  = require("./Router/CampusSecRouter/CampusGatewayRoutes");
+const CampusBannerRoutes  = require("./Router/CampusSecRouter/CampusBannerRoutes");
 
 const cors = require("cors")
 const app = express();
@@ -49,6 +59,7 @@ app.use(cors({
   credentials: true, // optional: only needed if you use cookies or auth headers
 }));
 // Routes
+app.use("/api/upload", uploadRoutes)
 app.use("/api/hero-banner", HeroBannerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/council", councilCategory);
