@@ -20,6 +20,8 @@
   "author": "Prasanth s on behalf of atelier",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.940.0",
+    "@aws-sdk/s3-request-presigner": "^3.940.0",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",

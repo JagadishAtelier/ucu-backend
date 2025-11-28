@@ -24,6 +24,7 @@ const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRo
 const partnershipCategoryRoutes  = require("./Router/partnershipCategoryRouter/partnershipCategoryRoutes");
 const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
 const partnershipBannerRoutes  = require("./Router/partnershipCategoryRouter/partnershipBannerRoutes");
+const uploadRoutes = require("./Router/upload");
 
 const cors = require("cors")
 const app = express();
@@ -37,6 +38,7 @@ app.use(cors({
   credentials: true, // optional: only needed if you use cookies or auth headers
 }));
 // Routes
+app.use("/api/upload", uploadRoutes)
 app.use("/api/hero-banner", HeroBannerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/council", councilCategory);
