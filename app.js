@@ -36,7 +36,6 @@ const strategicAssociationsRoutes = require("./Router/executiveRoutes/strategicA
 const coeRoutes = require("./Router/executiveRoutes/coeRoutes");
 const mediaRoutes = require("./Router/MediaRouter/mediaRoutes");
 const mediaBannerRoutes = require("./Router/MediaRouter/mediaBannerRoutes");
-const facultyBannerRoutes  = require("./Router/ucuDirectorRoutes/facultyBannerRoutes");
 const partnershipCategoryRoutes  = require("./Router/partnershipCategoryRouter/partnershipCategoryRoutes");
 const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
 const partnershipBannerRoutes  = require("./Router/partnershipCategoryRouter/partnershipBannerRoutes");
@@ -95,5 +94,6 @@ app.use("/api/strategicAssociations", strategicAssociationsRoutes);
 app.use("/api/coe", coeRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/mediaBanner", mediaBannerRoutes);
+app.use("/api/summerProgram", summerProgramRoutes);
 
 module.exports = app;
