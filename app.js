@@ -36,7 +36,10 @@ const coeRoutes = require("./Router/executiveRoutes/coeRoutes");
 const mediaRoutes = require("./Router/MediaRouter/mediaRoutes");
 const mediaBannerRoutes = require("./Router/MediaRouter/mediaBannerRoutes");
 const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
-
+const executiveIndividualsTabRoutes  = require("./Router/executiveRoutes/executiveIndividualsTabRoutes");
+const executiveIndividualsHelpFormRoutes  = require("./Router/executiveRoutes/executiveIndividualsHelpFormRoutes");
+const xelEnterpriseRoutes  = require("./Router/executiveRoutes/xelEnterpriseRoutes");
+const executivePhdTabRoutes  = require("./Router/executiveRoutes/executivePhdTabRoutes");
 const uploadRoutes = require("./Router/upload");
 
 const cors = require("cors")
@@ -88,5 +91,9 @@ app.use("/api/coe", coeRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/mediaBanner", mediaBannerRoutes);
 app.use("/api/summerProgram", summerProgramRoutes);
+app.use("/api/executiveIndividualsTab", executiveIndividualsTabRoutes);
+app.use("/api/executiveIndividualsHelpForm", executiveIndividualsHelpFormRoutes);
+app.use("/api/xelEnterprise", xelEnterpriseRoutes);
+app.use("/api/executivePhdTab", executivePhdTabRoutes);
 
 module.exports = app;
