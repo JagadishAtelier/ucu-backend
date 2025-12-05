@@ -41,6 +41,8 @@ const executiveIndividualsHelpFormRoutes  = require("./Router/executiveRoutes/ex
 const xelEnterpriseRoutes  = require("./Router/executiveRoutes/xelEnterpriseRoutes");
 const executivePhdTabRoutes  = require("./Router/executiveRoutes/executivePhdTabRoutes");
 const cxoAcademyRoutes  = require("./Router/executiveRoutes/cxoAcademyRoutes");
+const academicAccelatorRoutes  = require("./Router/executiveRoutes/academicAccelatorRoutes");
+const leadershipPhaseRoutes  = require("./Router/executiveRoutes/leadershipPhaseRoutes");
 const uploadRoutes = require("./Router/upload");
 
 const cors = require("cors")
@@ -97,5 +99,7 @@ app.use("/api/executiveIndividualsHelpForm", executiveIndividualsHelpFormRoutes)
 app.use("/api/xelEnterprise", xelEnterpriseRoutes);
 app.use("/api/executivePhdTab", executivePhdTabRoutes);
 app.use("/api/cxoAcademy", cxoAcademyRoutes);
+app.use("/api/academicAccelator", academicAccelatorRoutes);
+app.use("/api/leadershipPhase", leadershipPhaseRoutes);
 
 module.exports = app;
