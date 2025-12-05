@@ -46,6 +46,7 @@ const leadershipPhaseRoutes  = require("./Router/executiveRoutes/leadershipPhase
 const leadershipCoachingRoutes  = require("./Router/executiveRoutes/leadershipCoachingRoutes");
 const leadershipWhyChooseRoutes  = require("./Router/executiveRoutes/leadershipWhyChooseRoutes");
 const clientsProfileRoutes  = require("./Router/executiveRoutes/clientsProfileRoutes");
+const mdpsRoutes  = require("./Router/executiveRoutes/mdpsRoutes");
 const uploadRoutes = require("./Router/upload");
 
 const cors = require("cors")
@@ -107,5 +108,6 @@ app.use("/api/leadershipPhase", leadershipPhaseRoutes);
 app.use("/api/leadershipCoaching", leadershipCoachingRoutes);
 app.use("/api/leadershipWhyChoose", leadershipWhyChooseRoutes);
 app.use("/api/clientsProfile", clientsProfileRoutes);
+app.use("/api/mdps", mdpsRoutes);
 
 module.exports = app;
