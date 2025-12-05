@@ -45,6 +45,7 @@ const academicAccelatorRoutes  = require("./Router/executiveRoutes/academicAccel
 const leadershipPhaseRoutes  = require("./Router/executiveRoutes/leadershipPhaseRoutes");
 const leadershipCoachingRoutes  = require("./Router/executiveRoutes/leadershipCoachingRoutes");
 const leadershipWhyChooseRoutes  = require("./Router/executiveRoutes/leadershipWhyChooseRoutes");
+const clientsProfileRoutes  = require("./Router/executiveRoutes/clientsProfileRoutes");
 const uploadRoutes = require("./Router/upload");
 
 const cors = require("cors")
@@ -105,5 +106,6 @@ app.use("/api/academicAccelator", academicAccelatorRoutes);
 app.use("/api/leadershipPhase", leadershipPhaseRoutes);
 app.use("/api/leadershipCoaching", leadershipCoachingRoutes);
 app.use("/api/leadershipWhyChoose", leadershipWhyChooseRoutes);
+app.use("/api/clientsProfile", clientsProfileRoutes);
 
 module.exports = app;
