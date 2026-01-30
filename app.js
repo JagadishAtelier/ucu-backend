@@ -49,6 +49,14 @@ const clientsProfileRoutes  = require("./Router/executiveRoutes/clientsProfileRo
 const mdpsRoutes  = require("./Router/executiveRoutes/mdpsRoutes");
 const uploadRoutes = require("./Router/upload");
 
+const onlineProgramBannerRoutes = require("./Router/OnlineProgram/onlineProgramBannerRoutes")
+const onlineApplyRoutes = require("./Router/OnlineProgram/onlineApplyRoutes")
+const onlineProgramBannerFormRoutes = require("./Router/OnlineProgram/onlineProgramBannerFormRoutes")
+const onlineStatsRoutes = require("./Router/OnlineProgram/onlineStatsRoutes")
+const onlineProgramApplyFormRoutes = require("./Router/OnlineProgram/onlineProgramApplyFormRoutes")
+const campusPlacementIntroRoutes = require("./Router/CamPlacementRoutes/campusPlacementIntroRoutes")
+
+
 const cors = require("cors")
 const app = express();
 require("dotenv").config();
@@ -109,5 +117,12 @@ app.use("/api/leadershipCoaching", leadershipCoachingRoutes);
 app.use("/api/leadershipWhyChoose", leadershipWhyChooseRoutes);
 app.use("/api/clientsProfile", clientsProfileRoutes);
 app.use("/api/mdps", mdpsRoutes);
+app.use("/api/onlineProgramBanner", onlineProgramBannerRoutes);
+app.use("/api/onlineApply", onlineApplyRoutes);
+app.use("/api/onlineProgramBannerForm", onlineProgramBannerFormRoutes);
+app.use("/api/onlineStats", onlineStatsRoutes);
+app.use("/api/onlineProgramApplyForm", onlineProgramApplyFormRoutes);
+app.use("/api/campusPlacementIntro", campusPlacementIntroRoutes);
+
 
 module.exports = app;
