@@ -54,6 +54,7 @@ const onlineApplyRoutes = require("./Router/OnlineProgram/onlineApplyRoutes")
 const onlineProgramBannerFormRoutes = require("./Router/OnlineProgram/onlineProgramBannerFormRoutes")
 const onlineStatsRoutes = require("./Router/OnlineProgram/onlineStatsRoutes")
 const onlineProgramApplyFormRoutes = require("./Router/OnlineProgram/onlineProgramApplyFormRoutes")
+const applyOnlineFormPageRoutes = require("./Router/OnlineProgram/applyOnlineFormPageRoutes")
 const campusPlacementIntroRoutes = require("./Router/CamPlacementRoutes/campusPlacementIntroRoutes")
 
 
@@ -123,6 +124,7 @@ app.use("/api/onlineProgramBannerForm", onlineProgramBannerFormRoutes);
 app.use("/api/onlineStats", onlineStatsRoutes);
 app.use("/api/onlineProgramApplyForm", onlineProgramApplyFormRoutes);
 app.use("/api/campusPlacementIntro", campusPlacementIntroRoutes);
+app.use("/api/applyOnlineFormPage", applyOnlineFormPageRoutes);
 
 
 module.exports = app;
