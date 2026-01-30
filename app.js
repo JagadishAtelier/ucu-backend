@@ -35,19 +35,20 @@ const strategicAssociationsRoutes = require("./Router/executiveRoutes/strategicA
 const coeRoutes = require("./Router/executiveRoutes/coeRoutes");
 const mediaRoutes = require("./Router/MediaRouter/mediaRoutes");
 const mediaBannerRoutes = require("./Router/MediaRouter/mediaBannerRoutes");
-const partnershipDataRoutes  = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
-const executiveIndividualsTabRoutes  = require("./Router/executiveRoutes/executiveIndividualsTabRoutes");
-const executiveIndividualsHelpFormRoutes  = require("./Router/executiveRoutes/executiveIndividualsHelpFormRoutes");
-const xelEnterpriseRoutes  = require("./Router/executiveRoutes/xelEnterpriseRoutes");
-const executivePhdTabRoutes  = require("./Router/executiveRoutes/executivePhdTabRoutes");
-const cxoAcademyRoutes  = require("./Router/executiveRoutes/cxoAcademyRoutes");
-const academicAccelatorRoutes  = require("./Router/executiveRoutes/academicAccelatorRoutes");
-const leadershipPhaseRoutes  = require("./Router/executiveRoutes/leadershipPhaseRoutes");
-const leadershipCoachingRoutes  = require("./Router/executiveRoutes/leadershipCoachingRoutes");
-const leadershipWhyChooseRoutes  = require("./Router/executiveRoutes/leadershipWhyChooseRoutes");
-const clientsProfileRoutes  = require("./Router/executiveRoutes/clientsProfileRoutes");
-const mdpsRoutes  = require("./Router/executiveRoutes/mdpsRoutes");
+const partnershipDataRoutes = require("./Router/partnershipCategoryRouter/partnershipDataRoutes");
+const executiveIndividualsTabRoutes = require("./Router/executiveRoutes/executiveIndividualsTabRoutes");
+const executiveIndividualsHelpFormRoutes = require("./Router/executiveRoutes/executiveIndividualsHelpFormRoutes");
+const xelEnterpriseRoutes = require("./Router/executiveRoutes/xelEnterpriseRoutes");
+const executivePhdTabRoutes = require("./Router/executiveRoutes/executivePhdTabRoutes");
+const cxoAcademyRoutes = require("./Router/executiveRoutes/cxoAcademyRoutes");
+const academicAccelatorRoutes = require("./Router/executiveRoutes/academicAccelatorRoutes");
+const leadershipPhaseRoutes = require("./Router/executiveRoutes/leadershipPhaseRoutes");
+const leadershipCoachingRoutes = require("./Router/executiveRoutes/leadershipCoachingRoutes");
+const leadershipWhyChooseRoutes = require("./Router/executiveRoutes/leadershipWhyChooseRoutes");
+const clientsProfileRoutes = require("./Router/executiveRoutes/clientsProfileRoutes");
+const mdpsRoutes = require("./Router/executiveRoutes/mdpsRoutes");
 const uploadRoutes = require("./Router/upload");
+const admissionPageRoutes = require("./Router/AdmissionPageRoutes");
 
 const cors = require("cors")
 const app = express();
@@ -109,5 +110,6 @@ app.use("/api/leadershipCoaching", leadershipCoachingRoutes);
 app.use("/api/leadershipWhyChoose", leadershipWhyChooseRoutes);
 app.use("/api/clientsProfile", clientsProfileRoutes);
 app.use("/api/mdps", mdpsRoutes);
+app.use("/api/admissionPage", admissionPageRoutes);
 
 module.exports = app;
