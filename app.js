@@ -56,9 +56,16 @@ const onlineProgramBannerFormRoutes = require("./Router/OnlineProgram/onlineProg
 const onlineStatsRoutes = require("./Router/OnlineProgram/onlineStatsRoutes")
 const onlineProgramApplyFormRoutes = require("./Router/OnlineProgram/onlineProgramApplyFormRoutes")
 const applyOnlineFormPageRoutes = require("./Router/OnlineProgram/applyOnlineFormPageRoutes")
+
 const campusPlacementIntroRoutes = require("./Router/CamPlacementRoutes/campusPlacementIntroRoutes")
+
 const advisoryNavRoutes = require("./Router/AdvisoryNavigationRoutes");
-const aboutRoutes = require("./Router/AboutRoutes");
+const aboutRoutes = require("./Router/AboutRoutes"); // CMS Routes
+
+const campusPlacementBatchRoutes = require("./Router/CamPlacementRoutes/campusPlacementBatchRoutes")
+const exploreTalentRoutes = require("./Router/CamPlacementRoutes/exploreTalentRoutes")
+const aboutRoutesLegacy = require("./Router/AboutRoutes/aboutRoutes") // Incoming Legacy Routes
+const foundersMessageRoutes = require("./Router/AboutRoutes/foundersMessageRoutes")
 
 
 const cors = require("cors")
@@ -80,7 +87,8 @@ app.use("/api/council", councilCategory);
 app.use("/api/aspirant", aspirant);
 app.use("/api/council-adivsories", adivsoriesRoutes);
 app.use("/api/advisory-navigation", advisoryNavRoutes);
-app.use("/api/about", aboutRoutes);
+app.use("/api/about", aboutRoutes); // Use CMS routes for /api/about
+app.use("/api/about-legacy", aboutRoutesLegacy); // Keep legacy available
 app.use("/api/fulltimeprograms", fullTimeProgramRoutes);
 app.use("/api/industryIcons", industryIcons);
 app.use("/api/upcommingEvent", upcommingEvent);
@@ -132,5 +140,8 @@ app.use("/api/campusPlacementIntro", campusPlacementIntroRoutes);
 app.use("/api/applyOnlineFormPage", applyOnlineFormPageRoutes);
 
 app.use("/api/admissionPage", admissionPageRoutes);
+app.use("/api/exploreTalent", exploreTalentRoutes);
+app.use("/api/campusPlacementBatch", campusPlacementBatchRoutes);
+app.use("/api/foundersMessage", foundersMessageRoutes);
 
 module.exports = app;
