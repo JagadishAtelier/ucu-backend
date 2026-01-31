@@ -57,6 +57,8 @@ const onlineStatsRoutes = require("./Router/OnlineProgram/onlineStatsRoutes")
 const onlineProgramApplyFormRoutes = require("./Router/OnlineProgram/onlineProgramApplyFormRoutes")
 const applyOnlineFormPageRoutes = require("./Router/OnlineProgram/applyOnlineFormPageRoutes")
 const campusPlacementIntroRoutes = require("./Router/CamPlacementRoutes/campusPlacementIntroRoutes")
+const advisoryNavRoutes = require("./Router/AdvisoryNavigationRoutes");
+const aboutRoutes = require("./Router/AboutRoutes");
 
 
 const cors = require("cors")
@@ -77,6 +79,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/council", councilCategory);
 app.use("/api/aspirant", aspirant);
 app.use("/api/council-adivsories", adivsoriesRoutes);
+app.use("/api/advisory-navigation", advisoryNavRoutes);
+app.use("/api/about", aboutRoutes);
 app.use("/api/fulltimeprograms", fullTimeProgramRoutes);
 app.use("/api/industryIcons", industryIcons);
 app.use("/api/upcommingEvent", upcommingEvent);
