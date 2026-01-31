@@ -56,7 +56,14 @@ const onlineProgramBannerFormRoutes = require("./Router/OnlineProgram/onlineProg
 const onlineStatsRoutes = require("./Router/OnlineProgram/onlineStatsRoutes")
 const onlineProgramApplyFormRoutes = require("./Router/OnlineProgram/onlineProgramApplyFormRoutes")
 const applyOnlineFormPageRoutes = require("./Router/OnlineProgram/applyOnlineFormPageRoutes")
+
 const campusPlacementIntroRoutes = require("./Router/CamPlacementRoutes/campusPlacementIntroRoutes")
+const campusPlacementBatchRoutes = require("./Router/CamPlacementRoutes/campusPlacementBatchRoutes")
+const exploreTalentRoutes = require("./Router/CamPlacementRoutes/exploreTalentRoutes")
+
+
+const aboutRoutes = require("./Router/AboutRoutes/aboutRoutes")
+const foundersMessageRoutes = require("./Router/AboutRoutes/foundersMessageRoutes")
 
 
 const cors = require("cors")
@@ -128,5 +135,9 @@ app.use("/api/campusPlacementIntro", campusPlacementIntroRoutes);
 app.use("/api/applyOnlineFormPage", applyOnlineFormPageRoutes);
 
 app.use("/api/admissionPage", admissionPageRoutes);
+app.use("/api/about", aboutRoutes);
+app.use("/api/exploreTalent", exploreTalentRoutes);
+app.use("/api/campusPlacementBatch", campusPlacementBatchRoutes);
+app.use("/api/foundersMessage", foundersMessageRoutes);
 
 module.exports = app;
