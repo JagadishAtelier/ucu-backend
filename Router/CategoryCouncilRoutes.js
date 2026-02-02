@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 
-const councilRouter = require('../controllers/CouncilCtegoryController')
+const councilRouter = require('../controllers/CouncilCategoryController')
 
 router.post('/', councilRouter.createCouncilCategory)
 router.get('/', councilRouter.getCouncilCategory)
