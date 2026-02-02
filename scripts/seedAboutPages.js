@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 // Load env vars
 dotenv.config({ path: path.join(__dirname, '../.env') });
@@ -8,14 +10,83 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 const LeadershipPage = require('../Model/AboutModel/LeadershipPageModel');
 const IndustryApproachPage = require('../Model/AboutModel/IndustryApproachPageModel');
 const FounderMessagePage = require('../Model/AboutModel/FounderMessagePageModel');
+const AboutPageData = require('../Model/AboutPageData');
+const AboutNavigation = require('../Model/AboutNavigation');
+
+// S3 Configuration (DigitalOcean Spaces)
+const s3Client = new S3Client({
+    endpoint: "https://blr1.digitaloceanspaces.com",
+    region: "blr1",
+    credentials: {
+        accessKeyId: process.env.DO_SPACE_KEY,
+        secretAccessKey: process.env.DO_SPACE_SECRET
+    }
+});
+
+// Helper: Upload file to spaces
+const uploadFile = async (localPath, fileName) => {
+    try {
+        if (!fs.existsSync(localPath)) {
+            console.warn(`File not found, skipping: ${localPath}`);
+            return null;
+        }
+        const fileContent = fs.readFileSync(localPath);
+        const key = `cms-assets/${fileName}`; // Organized in folder
+        const params = {
+            Bucket: process.env.DO_SPACE_NAME,
+            Key: key,
+            Body: fileContent,
+            ACL: "public-read",
+            ContentType: fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') ? "image/jpeg" : "image/png"
+        };
+        const command = new PutObjectCommand(params);
+        await s3Client.send(command);
+        const url = `https://${process.env.DO_SPACE_NAME}.${process.env.DO_SPACE_REGION}.digitaloceanspaces.com/${key}`;
+        console.log(`Uploaded ${fileName} -> ${url}`);
+        return url;
+    } catch (e) {
+        console.error(`Error uploading ${fileName}:`, e.message);
+        return null; // Fallback to null or keep original if needed
+    }
+};
 
 const seedData = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Connected to MongoDB");
 
-        const AboutPageData = require('../Model/AboutPageData');
-        const AboutNavigation = require('../Model/AboutNavigation');
+        // --- 1. Upload Images First ---
+        console.log("Starting Image Migration...");
+
+        // Define paths mapping (Local Path -> Target Filename)
+        const assetsBase = path.join(__dirname, '../../UCU-webpage/src/Assets');
+        const publicBase = path.join(__dirname, '../../UCU-webpage/public');
+
+        const imageMappings = {
+            "founder.jpg": path.join(publicBase, "founder.jpg"),
+            "vision_image1.jpg": path.join(assetsBase, "aboutPageImage/vision_image1.jpg"),
+            "about-image-1.jpg": path.join(assetsBase, "about-page-images/image-1.jpg"),
+            "about-image-2.jpg": path.join(assetsBase, "about-page-images/image-2.jpg"),
+            "history-1.jpg": path.join(publicBase, "historyImages/1.jpg"),
+            "history-2.jpg": path.join(publicBase, "historyImages/2.jpg"),
+            "history-3.jpg": path.join(publicBase, "historyImages/3.jpg"),
+            "history-4.jpg": path.join(publicBase, "historyImages/4.jpg"),
+            "history-5.jpg": path.join(publicBase, "historyImages/5.jpg"),
+            "history-6.jpg": path.join(publicBase, "historyImages/6.jpg"),
+            "timeline-logo2.png": path.join(publicBase, "timeline-logo2.png"),
+        };
+
+        const uploadedUrls = {};
+
+        for (const [key, filePath] of Object.entries(imageMappings)) {
+            const url = await uploadFile(filePath, key);
+            if (url) uploadedUrls[key] = url;
+            else uploadedUrls[key] = `https://ucu.blr1.digitaloceanspaces.com/cms-assets/${key}`; // Fallback to expected URL even if upload failed locally (maybe already there)
+        }
+
+        console.log("Image Migration Completed. Seeding Data...");
+
+        // --- 2. Seed Data with NEW URLs ---
 
         // --- Main About UCU Page ---
         console.log("Seeding Main About UCU Page...");
@@ -36,7 +107,7 @@ const seedData = async () => {
                     type: "vision",
                     heading: "Vision",
                     content: "To be a globally recognised force in business education—democratising access, bridging rural-urban divides, and empowering learners and educators through a curriculum co-created and delivered by industry leaders and corporate practitioners, within a lifelong learning ecosystem that redefines global teaching standards and prepares agile talent for the future of work.",
-                    image: "https://ucu-imgs.s3.ap-south-1.amazonaws.com/vision_image1.jpg"
+                    image: uploadedUrls["vision_image1.jpg"]
                 },
                 // Mission
                 {
@@ -55,8 +126,8 @@ const seedData = async () => {
                     heading: "<span>1990 – 2009</span> : Vision Realised",
                     content: "This journey is the life’s work of our Founder & Chairman, <strong>Dr. M. Balaji (Bala)</strong>. It began at the <strong>Ahmedabad Management Association (AMA)</strong>, founded by Dr. Vikram Sarabhai, the father of India’s space program, where Dr. Balaji was part of the founding team.<br/><br/>He played a pivotal role in transforming a modest 3,000 sq. ft. facility into a world-class 30,000 sq. ft. management complex, located opposite IIM Ahmedabad. Under his leadership, AMA established <strong>32 Centers of Excellence</strong>, mobilized <strong>₹3.5 crores in funding</strong>, launched over a dozen functional diploma programs, and hosted more than <strong>5,000 Management Development Programs</strong> and <strong>2,500+ CXO talks</strong>.<br/><br/>These milestones laid the foundation for his deep expertise in corporate and executive education ecosystems.",
                     gallery: [
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/about-page-images/image-1.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/about-page-images/image-2.jpg",
+                        uploadedUrls["about-image-1.jpg"],
+                        uploadedUrls["about-image-2.jpg"],
                         "https://amaindia.b-cdn.net/amain/wp-content/uploads/2019/05/Facilities2.jpg",
                         "https://amaindia.b-cdn.net/amain/wp-content/uploads/2019/05/Facilities4.gif",
                         "https://amaindia.b-cdn.net/amain/wp-content/uploads/2022/06/DSC_1058.jpg",
@@ -68,12 +139,12 @@ const seedData = async () => {
                     heading: "<span>2009 – 2026</span> : Building Launchpad for Global Careers",
                     content: "Dr. Bala carried his vision forward to <strong>Great Lakes Institute of Management</strong>, where he served for over 15 years and played a pivotal role in shaping its corporate engagement strategy.<br/><br/>He built a robust campus placement engine that successfully placed over <strong>8,000 students</strong> and supported more than <strong>1,000 MBA graduates annually</strong>. His pioneering contributions included conceptualizing and hosting a series of innovative conferences and conventions across emerging and diverse industry sectors, launching India’s first <strong>Product Management program</strong> in collaboration with PayPal, and establishing the <strong>Placement Academy for Career Enhancement (PACE)</strong>, a strategic initiative designed to bridge the gap between academic curricula and industry expectations.<br/><br/>He also founded one of India’s most distinguished student-led placement committees, <strong>PlaceCom</strong>, which identified and nurtured over <strong>1,000 high-caliber individuals</strong>. This initiative evolved into a leadership development platform, producing fast-track talent now serving in global corporations such as <strong>Apple, Google, McKinsey, Facebook, PayPal, BCG, Bain, Amazon, Microsoft</strong>, and many others.<br/><br/>Under his stewardship, the institute’s average campus CTC increased more than sevenfold within a decade, reflecting the transformative impact of his leadership.<br/><br/>",
                     gallery: [
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/2.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/3.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/1.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/5.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/6.jpg",
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/historyImages/4.jpg"
+                        uploadedUrls["history-2.jpg"],
+                        uploadedUrls["history-3.jpg"],
+                        uploadedUrls["history-1.jpg"],
+                        uploadedUrls["history-5.jpg"],
+                        uploadedUrls["history-6.jpg"],
+                        uploadedUrls["history-4.jpg"]
                     ]
                 },
                 {
@@ -81,7 +152,7 @@ const seedData = async () => {
                     heading: "<span>2026 – Present</span> : Birth of Universal Corporate University (UCU) - Building what's next",
                     content: "Throughout his career, Dr. Bala keenly observed the widening disconnect between what was taught in business schools and what the industry truly needed — an issue magnified by the rise of AI and rapid technological change.<br/><br/>Recognizing this gap, he united a committed group of industry leaders and alumni to build something transformative, not just for learners, but also for educators.<br/><br/>Through lifelong learning and skill-building initiatives, <strong>UCU</strong> empowers academic institutions to become market-ready, enabling faculty to deliver industry-aligned education that produces better outcomes.<br/><br/>Thus, <strong>UCU was born</strong>, a direct response to the market’s demand for relevant, rigorous, and results-driven corporate education. UCU’s foundation is a testament to what happens when vision meets execution, and when education is reimagined for the future of work.<br/><br/>UCU is the <strong>living legacy</strong> of a leader who dedicated his career to aligning talent with enterprise expectations. Every program is engineered for genuine impact, empowering learners to become agile, future-ready business leaders.",
                     gallery: [
-                        "https://ucu-imgs.s3.ap-south-1.amazonaws.com/timeline-logo2.png",
+                        uploadedUrls["timeline-logo2.png"],
                         "https://img.freepik.com/free-photo/shanghai-waitan_649448-3038.jpg",
                         "https://img.freepik.com/free-photo/modern-amphitheater-usa_1268-14358.jpg"
                     ]
@@ -100,7 +171,7 @@ const seedData = async () => {
             { upsert: true, new: true }
         );
 
-        // Ensure navigation exists for main page (optional, but good for completeness)
+        // Ensure navigation exists for main page
         await AboutNavigation.findOneAndUpdate(
             { slug: "main-about-ucu" },
             { title: "About UCU", slug: "main-about-ucu", order: 0 },
@@ -117,7 +188,7 @@ const seedData = async () => {
             founderName: "Dr. M Balaji (BALA)",
             founderTitle: "Founder & Chairman",
             founderDescription: "At UCU, leadership is not defined by titles but by the ability to shape ecosystems, inspire progress, and create meaningful change. The Leadership Consortium was built on this belief. More than a platform, it is a dynamic space where influential minds—academicians, industry leaders, and aspiring professionals—come together to elevate capability and character.",
-            founderImage: "https://ucu-imgs.s3.ap-south-1.amazonaws.com/founder.jpg",
+            founderImage: uploadedUrls["founder.jpg"],
             leadershipTeams: [{
                 title: "Meet our leadership team.",
                 members: [
@@ -132,8 +203,6 @@ const seedData = async () => {
             }]
         };
 
-        // --- Leadership Page ---
-        console.log("Seeding/Updating Leadership Page...");
         await LeadershipPage.findOneAndUpdate(
             { slug: leadershipData.slug },
             leadershipData,
@@ -178,7 +247,7 @@ const seedData = async () => {
             founderName: "Dr. M. Balaji (Bala)",
             founderTitle: "Founder & Chairman",
             founderOrg: "Universal Corporate University",
-            founderImage: "https://ucu-imgs.s3.ap-south-1.amazonaws.com/founder.jpg",
+            founderImage: uploadedUrls["founder.jpg"],
             signatureName: "Dr. M. Balaji (Bala)",
             signatureTitle: "Founder & Chairman",
             signatureOrg: "Universal Corporate University, Chennai",
