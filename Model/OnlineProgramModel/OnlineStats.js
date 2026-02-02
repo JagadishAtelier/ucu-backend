@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const onlineStatSchema = new mongoose.Schema(
   {
-    count : { type: Number, required: true },
+    count : { type: String, required: true },
 
     content : { type : String , required : true},
 
