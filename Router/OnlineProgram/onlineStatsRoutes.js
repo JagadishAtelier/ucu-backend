@@ -3,8 +3,7 @@ const router = express.Router();
 const onlineStatsController = require("../../controllers/OnlineProgram/onlineStatsController");
 
 // Create
-router.post("/", onlineStatsController.createOnlineStat);
-router.post("/bulk", onlineStatsController.createMultipleOnlineStats);
+router.post("/", onlineStatsController.createOnlineStats);
 
 // Read
 router.get("/", onlineStatsController.getAllOnlineStats);

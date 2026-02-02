@@ -1,34 +1,28 @@
 const OnlineStats = require("../../Model/OnlineProgramModel/OnlineStats");
 
-// ------------------- CREATE -------------------
+// ------------------- CREATE (Single & Bulk Combined) -------------------
 
-// Create single stat
-exports.createOnlineStat = async (req, res) => {
+exports.createOnlineStats = async (req, res) => {
   try {
-    const { count, content, iconImage } = req.body;
+    const data = req.body;
 
-    const newStat = new OnlineStats({ count, content, iconImage });
-    const savedStat = await newStat.save();
-
-    res.status(201).json(savedStat);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to create stat", error });
-  }
-};
-
-// Create multiple stats at once
-exports.createMultipleOnlineStats = async (req, res) => {
-  try {
-    const stats = req.body; // expect an array of objects [{count, content, iconImage}, ...]
-
-    if (!Array.isArray(stats) || stats.length === 0) {
-      return res.status(400).json({ message: "Please provide an array of stats" });
+    // Check if data is an array (bulk) or a single object
+    let savedStats;
+    if (Array.isArray(data)) {
+      if (data.length === 0) {
+        return res.status(400).json({ message: "Please provide at least one stat" });
+      }
+      // Bulk insert
+      savedStats = await OnlineStats.insertMany(data, { ordered: true });
+    } else {
+      // Single insert
+      const newStat = new OnlineStats(data);
+      savedStats = await newStat.save();
     }
 
-    const savedStats = await OnlineStats.insertMany(stats, { ordered: true });
     res.status(201).json(savedStats);
   } catch (error) {
-    res.status(500).json({ message: "Failed to create multiple stats", error });
+    res.status(500).json({ message: "Failed to create stat(s)", error });
   }
 };
 
@@ -76,11 +70,10 @@ exports.updateOnlineStat = async (req, res) => {
   }
 };
 
-// Update multiple stats at once (optional, by array of IDs)
+// Update multiple stats at once
 exports.updateMultipleOnlineStats = async (req, res) => {
   try {
     const updates = req.body; // expect array [{_id, count, content, iconImage}, ...]
-
     if (!Array.isArray(updates) || updates.length === 0) {
       return res.status(400).json({ message: "Please provide an array of updates" });
     }
@@ -115,7 +108,6 @@ exports.deleteOnlineStat = async (req, res) => {
 exports.deleteMultipleOnlineStats = async (req, res) => {
   try {
     const { ids } = req.body; // expect { ids: ["id1", "id2", ...] }
-
     if (!Array.isArray(ids) || ids.length === 0) {
       return res.status(400).json({ message: "Please provide an array of IDs to delete" });
     }
