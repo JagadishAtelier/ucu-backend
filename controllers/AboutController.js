@@ -1,5 +1,8 @@
 const AboutNavigation = require('../Model/AboutNavigation');
 const AboutPageData = require('../Model/AboutPageData');
+const LeadershipPage = require('../Model/AboutModel/LeadershipPageModel');
+const FounderMessagePage = require('../Model/AboutModel/FounderMessagePageModel');
+const IndustryApproachPage = require('../Model/AboutModel/IndustryApproachPageModel');
 
 // --- Navigation ---
 exports.getNavigation = async (req, res) => {
@@ -50,6 +53,8 @@ exports.updateNavigation = async (req, res) => {
         await nav.save();
 
         // Update linked page data
+        // Handle special pages renaming if needed, but usually special pages slugs are fixed.
+        // For generic pages:
         await AboutPageData.findOneAndUpdate({ pageSlug: oldSlug }, { pageSlug: newSlug, title: title });
 
         res.status(200).json({ success: true, data: nav });
@@ -63,6 +68,7 @@ exports.deleteNavigation = async (req, res) => {
         const { id } = req.params;
         const nav = await AboutNavigation.findById(id);
         if (nav) {
+            // Check if special page, maybe prevent deletion or just delete nav
             await AboutPageData.deleteOne({ pageSlug: nav.slug });
             await AboutNavigation.findByIdAndDelete(id);
         }
@@ -76,9 +82,21 @@ exports.deleteNavigation = async (req, res) => {
 exports.getPageData = async (req, res) => {
     try {
         const { slug } = req.params;
-        let data = await AboutPageData.findOne({ pageSlug: slug });
-        // If navigation exists but data missing, create generic
-        if (!data) {
+        let data;
+
+        // Routing to specific models based on slug
+        if (slug === 'leadership') {
+            data = await LeadershipPage.findOne({ slug: 'leadership' });
+        } else if (slug === 'founders-messages') {
+            data = await FounderMessagePage.findOne({ slug: 'founders-messages' });
+        } else if (slug === 'industry-approach') {
+            data = await IndustryApproachPage.findOne({ slug: 'industry-approach' });
+        } else {
+            data = await AboutPageData.findOne({ pageSlug: slug });
+        }
+
+        // If navigation exists but data missing, create generic (only for generic pages)
+        if (!data && !['leadership', 'founders-messages', 'industry-approach'].includes(slug)) {
             const nav = await AboutNavigation.findOne({ slug });
             if (nav) {
                 data = new AboutPageData({ pageSlug: slug, title: nav.title });
@@ -86,7 +104,10 @@ exports.getPageData = async (req, res) => {
             } else {
                 return res.status(404).json({ message: "Page not found" });
             }
+        } else if (!data) {
+            return res.status(404).json({ message: "Page not found" });
         }
+
         res.status(200).json({ success: true, data: data });
     } catch (error) {
         res.status(400).json({ success: false, message: error.message });
@@ -96,8 +117,19 @@ exports.getPageData = async (req, res) => {
 exports.updatePageData = async (req, res) => {
     try {
         const { slug } = req.params;
-        // Upsert true to create if missing
-        const data = await AboutPageData.findOneAndUpdate({ pageSlug: slug }, req.body, { new: true, upsert: true });
+        let data;
+
+        if (slug === 'leadership') {
+            data = await LeadershipPage.findOneAndUpdate({ slug: 'leadership' }, req.body, { new: true, upsert: true });
+        } else if (slug === 'founders-messages') {
+            data = await FounderMessagePage.findOneAndUpdate({ slug: 'founders-messages' }, req.body, { new: true, upsert: true });
+        } else if (slug === 'industry-approach') {
+            data = await IndustryApproachPage.findOneAndUpdate({ slug: 'industry-approach' }, req.body, { new: true, upsert: true });
+        } else {
+            // Upsert true to create if missing
+            data = await AboutPageData.findOneAndUpdate({ pageSlug: slug }, req.body, { new: true, upsert: true });
+        }
+
         res.status(200).json({ success: true, data: data });
     } catch (error) {
         res.status(400).json({ success: false, message: error.message });
