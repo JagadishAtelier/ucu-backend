@@ -103,7 +103,15 @@ exports.getCouncilCategoryWithAdivsories = async (req, res) => {
 exports.getCouncilCategoryWithAdvisoriesByTitle = async (req, res) => {
   try {
     const { title } = req.params;
-    const category = await CouncilCategory.findOne({ councilTitle: title });
+    // Search by slug OR title (using regex for case-insensitive title match if needed, or exact match)
+    const category = await CouncilCategory.findOne({
+      $or: [
+        { slug: title },
+        { councilTitle: title },
+        // Fallback for title case variants if needed, but robust slug is better
+        { councilTitle: { $regex: new RegExp(`^${title}$`, 'i') } }
+      ]
+    });
 
     if (!category) {
       return res.status(404).json({ message: "Category Not Found" });

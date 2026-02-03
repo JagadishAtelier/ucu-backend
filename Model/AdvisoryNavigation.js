@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const advisoryNavigationSchema = new mongoose.Schema({
     title: { type: String, required: true }, // e.g., "SME Program Advisory Council"
+    type: { type: String, enum: ['group', 'link'], default: 'group' },
+    link: { type: String }, // Required if type === 'link'
     icon: { type: String, default: "User2" },
     sections: [{
         header: { type: String, default: "" }, // e.g., "Advisory" (optional grouping)
