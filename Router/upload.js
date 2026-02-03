@@ -6,6 +6,7 @@ const { getUploadUrl } = require("../utils/presign");
 router.post("/presign", async (req, res) => {
   try {
     const { filename, contentType, size } = req.body;
+    console.log("Presign Request Body:", req.body);
     if (!filename || !contentType) return res.status(400).json({ message: "Missing filename/contentType" });
 
     const result = await getUploadUrl({ filename, contentType });
@@ -13,7 +14,8 @@ router.post("/presign", async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Failed to create presigned URL", error: err.message });
+    console.error("Presign Error:", err);
+    res.status(500).json({ message: "Failed to create presigned URL", error: err.message, stack: err.stack });
   }
 });
 

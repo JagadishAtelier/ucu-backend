@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const HeroBannerRoutes = require("./Router/HeroBannerRoutes");
@@ -72,7 +73,7 @@ const industryApproachRoutes = require("./Router/AboutRoutes/industryApproachRou
 
 const cors = require("cors")
 const app = express();
-require("dotenv").config();
+
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));

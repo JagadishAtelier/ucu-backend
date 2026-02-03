@@ -10,6 +10,14 @@ const DO_ACCESS_KEY = process.env.DO_SPACE_KEY;
 const DO_SECRET = process.env.DO_SPACE_SECRET;
 const URL_EXPIRY_SECONDS = 60 * 10; // 10 minutes
 
+console.log("Presign Config:", {
+  bucket: DO_SPACE_NAME,
+  region: DO_REGION,
+  endpoint: DO_ENDPOINT,
+  hasKey: !!DO_ACCESS_KEY,
+  hasSecret: !!DO_SECRET
+});
+
 const s3 = new S3Client({
   region: DO_REGION,
   endpoint: DO_ENDPOINT,
