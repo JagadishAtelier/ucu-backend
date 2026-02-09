@@ -70,6 +70,8 @@ const foundersMessageRoutes = require("./Router/AboutRoutes/founderMessageRoutes
 const leadershipRoutes = require("./Router/AboutRoutes/leadershipRoutes")
 const industryApproachRoutes = require("./Router/AboutRoutes/industryApproachRoutes")
 const collabRoutes = require("./Router/collabRoutes")
+const societalImpactRoutes = require("./Router/societalImpactRoutes")
+const contactRoutes = require("./Router/contactRoutes")
 
 
 const cors = require("cors")
@@ -150,5 +152,7 @@ app.use("/api/about/founder-message", foundersMessageRoutes);
 app.use("/api/about/leadership", leadershipRoutes);
 app.use("/api/about/industry-approach", industryApproachRoutes);
 app.use("/api/collabRoutes", collabRoutes);
+app.use("/api/societalImpact", societalImpactRoutes);
+app.use("/api/contact", contactRoutes);
 
 module.exports = app;
